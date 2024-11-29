@@ -3,11 +3,17 @@ const app = express();
 require("dotenv").config();
 const cors = require("cors");
 const PORT = process.env.PORT;
+
+app.use(cors());
+app.use(express.json());
+
 var cron = require("node-cron");
+//all my arrays will get sent into an object to the frontend
 let arrayEasyData = []; // Store the generated array to serve to the frontend
 let arrayMedData = []; // Store the generated array to serve to the frontend
 let arrayHardData = []; // Store the generated array to serve to the frontend
 let arrayExtraData = []; // Store the generated array to serve to the frontend
+let allArraysTogether = []; //add the 4 arrays together
 let arrayAgainstData = []; // Store the generated array to serve to the frontend
 
 const makeArray = async (count, max) => {
@@ -32,6 +38,25 @@ const makeArray = async (count, max) => {
   return newArray;
 };
 
+const addArrays = async () => {
+  if (
+    arrayEasyData !== "" &&
+    arrayMedData !== "" &&
+    arrayHardData !== "" &&
+    arrayExtraData !== ""
+  ) {
+    //add all arrays together into one array
+    const mergeArrays = arrayEasyData.concat(
+      arrayMedData,
+      arrayHardData,
+      arrayExtraData
+    );
+    return mergeArrays;
+  } else {
+    console.log("there is no info in the needed arrays.");
+  }
+};
+const testArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // Schedule the function to run every 24 hours
 cron.schedule("* * * * *", async () => {
   console.log("Generating new array...");
@@ -40,33 +65,12 @@ cron.schedule("* * * * *", async () => {
   arrayHardData = await makeArray(12, 10);
   arrayExtraData = await makeArray(12, 13);
   arrayAgainstData = await makeArray(12, 13); // Example: Generate an array with 10 numbers, max value 100
-  // console.log(
-  //   "different levels of arrays:",
-  //   arrayEasyData,
-  //   arrayMedData,
-  //   arrayHardData,
-  //   arrayExtraData,
-  //   " the array they are times against: ",
-  //   arrayAgainstData
-  // );
+  allArraysTogether = await addArrays();
 });
 
 // API endpoint to serve the data
-app.get("/array-data", (req, res) => {
-  res.json({
-    arrayEasyData,
-    arrayMedData,
-    arrayHardData,
-    arrayExtraData,
-    arrayAgainstData,
-  });
-});
-
-app.use(cors());
-app.use(express.json());
-
 app.get("/", (req, res) => {
-  res.send(200);
+  res.json([allArraysTogether, arrayAgainstData]);
 });
 
 //all you see at the moment is this in your browser
