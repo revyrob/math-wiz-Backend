@@ -60,10 +60,10 @@ const testArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // Schedule the function to run every 24 hours
 cron.schedule("* * * * *", async () => {
   console.log("Generating new array...");
-  arrayEasyData = await makeArray(12, 5); // Example: Generate an array with 12 numbers, max value 5
-  arrayMedData = await makeArray(12, 8);
-  arrayHardData = await makeArray(12, 10);
-  arrayExtraData = await makeArray(12, 13);
+  arrayEasyData = await makeArray(20, 5); // Example: Generate an array with 12 numbers, max value 5
+  arrayMedData = await makeArray(20, 8);
+  arrayHardData = await makeArray(20, 10);
+  arrayExtraData = await makeArray(20, 13);
   arrayAgainstData = await makeArray(12, 13); // Example: Generate an array with 10 numbers, max value 100
   allArraysTogether = await addArrays();
 });
