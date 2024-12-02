@@ -14,10 +14,10 @@ let arrayMedData = []; // Store the generated array to serve to the frontend
 let arrayHardData = []; // Store the generated array to serve to the frontend
 let arrayExtraData = []; // Store the generated array to serve to the frontend
 let allArraysTogether = [
-  4, 3, 2, 1, 4, 3, 2, 1, 2, 3, 1, 4, 3, 2, 4, 1, 4, 2, 3, 1, 4, 1, 5, 2, 6, 3,
-  7, 7, 4, 1, 5, 3, 2, 6, 7, 4, 1, 5, 3, 2, 1, 7, 4, 5, 6, 2, 9, 3, 8, 7, 3, 1,
-  8, 9, 2, 4, 5, 6, 1, 6, 2, 12, 10, 11, 4, 5, 9, 1, 8, 6, 3, 7, 2, 7, 12, 10,
-  11, 4, 5, 9,
+  4, 3, 6, 5, 2, 9, 7, 1, 8, 4, 6, 1, 9, 7, 2, 5, 3, 8, 9, 3, 7, 6, 5, 4, 3, 2,
+  1, 7, 1, 4, 6, 3, 2, 5, 6, 1, 7, 4, 2, 3, 1, 2, 5, 9, 8, 3, 4, 6, 7, 7, 9, 6,
+  4, 3, 1, 8, 2, 5, 7, 4, 9, 12, 1, 7, 2, 8, 10, 5, 3, 11, 6, 4, 1, 11, 6, 5, 2,
+  8, 12, 3,
 ]; //add the 4 arrays together
 let arrayAgainstData = [1, 3, 9, 11, 7, 12, 6, 2, 5, 10, 8, 4]; // Store the generated array to serve to the frontend
 let counter = 1;
@@ -64,10 +64,10 @@ const addArrays = async () => {
 };
 
 // Schedule the function to run every 24 hours
-cron.schedule("0 0 * * *", async () => {
+cron.schedule("* * * * *", async () => {
   counter += 1;
   console.log("Generating new array...");
-  arrayEasyData = await makeArray(20, 5); // Example: Generate an array with 12 numbers, max value 5
+  arrayEasyData = await makeArray(20, 10); // Example: Generate an array with 12 numbers, max value 5
   arrayMedData = await makeArray(20, 8);
   arrayHardData = await makeArray(20, 10);
   arrayExtraData = await makeArray(20, 13);
