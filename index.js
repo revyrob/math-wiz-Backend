@@ -15,7 +15,7 @@ let arrayHardData = []; // Store the generated array to serve to the frontend
 let arrayExtraData = []; // Store the generated array to serve to the frontend
 let allArraysTogether = []; //add the 4 arrays together
 let arrayAgainstData = []; // Store the generated array to serve to the frontend
-
+let counter = 1;
 const makeArray = async (count, max) => {
   let newArray = [];
   //i want unique until the count is hit and then I want it to start again
@@ -59,6 +59,7 @@ const addArrays = async () => {
 const testArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // Schedule the function to run every 24 hours
 cron.schedule("0 0 * * *", async () => {
+  counter += 1;
   console.log("Generating new array...");
   arrayEasyData = await makeArray(20, 5); // Example: Generate an array with 12 numbers, max value 5
   arrayMedData = await makeArray(20, 8);
@@ -70,7 +71,7 @@ cron.schedule("0 0 * * *", async () => {
 
 // API endpoint to serve the data
 app.get("/", (req, res) => {
-  res.json([allArraysTogether, arrayAgainstData]);
+  res.json([allArraysTogether, arrayAgainstData, counter]);
 });
 
 //all you see at the moment is this in your browser
