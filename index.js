@@ -58,7 +58,7 @@ const addArrays = async () => {
 };
 const testArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // Schedule the function to run every 24 hours
-cron.schedule("* * * * *", async () => {
+cron.schedule("0 0 * * *", async () => {
   counter += 1;
   console.log("Generating new array...");
   arrayEasyData = await makeArray(20, 5); // Example: Generate an array with 12 numbers, max value 5
