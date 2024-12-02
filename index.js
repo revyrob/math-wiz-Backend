@@ -13,9 +13,15 @@ let arrayEasyData = []; // Store the generated array to serve to the frontend
 let arrayMedData = []; // Store the generated array to serve to the frontend
 let arrayHardData = []; // Store the generated array to serve to the frontend
 let arrayExtraData = []; // Store the generated array to serve to the frontend
-let allArraysTogether = []; //add the 4 arrays together
-let arrayAgainstData = []; // Store the generated array to serve to the frontend
+let allArraysTogether = [
+  4, 3, 2, 1, 4, 3, 2, 1, 2, 3, 1, 4, 3, 2, 4, 1, 4, 2, 3, 1, 4, 1, 5, 2, 6, 3,
+  7, 7, 4, 1, 5, 3, 2, 6, 7, 4, 1, 5, 3, 2, 1, 7, 4, 5, 6, 2, 9, 3, 8, 7, 3, 1,
+  8, 9, 2, 4, 5, 6, 1, 6, 2, 12, 10, 11, 4, 5, 9, 1, 8, 6, 3, 7, 2, 7, 12, 10,
+  11, 4, 5, 9,
+]; //add the 4 arrays together
+let arrayAgainstData = [1, 3, 9, 11, 7, 12, 6, 2, 5, 10, 8, 4]; // Store the generated array to serve to the frontend
 let counter = 1;
+
 const makeArray = async (count, max) => {
   let newArray = [];
   //i want unique until the count is hit and then I want it to start again
@@ -56,7 +62,7 @@ const addArrays = async () => {
     console.log("there is no info in the needed arrays.");
   }
 };
-const testArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
 // Schedule the function to run every 24 hours
 cron.schedule("0 0 * * *", async () => {
   counter += 1;
