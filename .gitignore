@@ -33,6 +33,7 @@ Thumbs.db
 .idea/
 
 
+
 # Coverage directory used by tools like istanbul
 coverage/
 
@@ -56,3 +57,5 @@ dist/
 
 # Optional docusaurus build output
 .build/
+
+.yml
