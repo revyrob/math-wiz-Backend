@@ -76,7 +76,7 @@ const makeArray = async (count, max) => {
 };
 
 // Schedule the function to run every 24 hours. create array for different diffculties
-schedule("* * * * *", async () => {
+schedule("0 0 * * *", async () => {
   counter += 1;
   saveCounter();
   console.log("Generating new arrays...");
