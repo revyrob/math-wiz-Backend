@@ -3,7 +3,7 @@ const app = express();
 require("dotenv").config();
 const cors = require("cors");
 const PORT = process.env.PORT;
-
+const fs = require("fs");
 app.use(cors());
 app.use(express.json());
 
@@ -33,6 +33,30 @@ let arrayAgainstHardData = [1, 3, 9, 11, 7, 12, 6, 2, 5, 10, 8, 4];
 //start the counter at 1
 let counter = 1;
 
+// Load counter value on server start
+const loadCounter = () => {
+  try {
+    if (fs.existsSync("counter.txt")) {
+      const data = fs.readFileSync("counter.txt", "utf8");
+      counter = parseInt(data, 10) || 1;
+      console.log("Counter loaded:", counter);
+    } else {
+      console.log("Counter file does not exist. Starting from 1.");
+    }
+  } catch (error) {
+    console.error("Error loading counter:", error.message);
+  }
+};
+
+// Save counter value
+const saveCounter = () => {
+  try {
+    fs.writeFileSync("counter.txt", counter.toString(), "utf8");
+    console.log("Counter saved:", counter);
+  } catch (error) {
+    console.error("Error saving counter:", error.message);
+  }
+};
 // Function to generate arrays
 const makeArray = async (count, max) => {
   let newArray = [];
@@ -52,8 +76,9 @@ const makeArray = async (count, max) => {
 };
 
 // Schedule the function to run every 24 hours. create array for different diffculties
-schedule("0 0 * * *", async () => {
+schedule("* * * * *", async () => {
   counter += 1;
+  saveCounter();
   console.log("Generating new arrays...");
   arrayEasyData = await makeArray(40, 5);
   arrayMedData = await makeArray(40, 8);
@@ -128,6 +153,9 @@ app.get("/counter", (req, res) => {
     counter,
   });
 });
+
+// Initialize the counter
+loadCounter();
 
 app.listen(PORT, () => {
   console.log(`Server has started on ${PORT}`);
